@@ -31,6 +31,13 @@ class HuibospiderSpider(scrapy.Spider):
 				item['address'] = postIntro.css("div.postIntroList span.address::text").extract_first().strip()
 				item['exp'] = postIntro.css("div.postIntroList span.exp::text").extract_first().strip()
 				print(item["job"])
+				time = postIntro.css("div.postIntroList span.job_time::text").extract_first()
+				if time:
+				    # 处理时间，将现在，昨天等中文表达转换为具体日期
+				    time = dateparser.parse(time).date().strftime("%Y-%m-%d")
+				else:
+				    time = dateparser.parse('现在').date().strftime("%Y-%m-%d")
+				item["job_time"] = time
 				yield item
 			except Exception as e:
 				print(e)
