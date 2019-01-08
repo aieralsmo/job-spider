@@ -39,5 +39,6 @@ class HuiboItem(scrapy.Item):
     salary = scrapy.Field()
     address = scrapy.Field()
     exp = scrapy.Field()
+    job_time = scrapy.Field()
 
             
